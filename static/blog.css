@@ -1,0 +1,60 @@
+#outer {
+    width: 50%;
+    margin: 0 auto; 
+}
+
+#textaligner {
+    width: 53%;
+    margin: 0 auto;
+}
+
+#inner{
+	display: inline-block;
+}
+
+#first{
+	float: left;
+    width:27%
+}
+
+#second{
+    align-self: center;
+	float: left;
+    width:15%
+}
+
+#third{
+	float: left;
+    width:15%
+}
+
+#selectall
+{
+    width:15px; height:15px;
+}
+
+
+#submit{
+    white-space: normal;
+}
+
+.form-control {
+    width:100px;
+}
+
+input[type=text], select {
+    width: 45%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+	background-color: F8EFED;
+}
+
+body {
+    padding-left: 45px;
+	#background-color: #F8EFED;
+}
+

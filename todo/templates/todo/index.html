@@ -1,0 +1,74 @@
+{% load staticfiles %}
+<html>
+<script>
+    function checkall(source)
+    {
+        if(document.getElementById("selectall").checked == true || document.getElementById("selectall").checked == false)
+        {
+            checkboxes = document.getElementsByName('checks[]');
+            for(var i=0, n=checkboxes.length;i<n;i++)
+            {
+                checkboxes[i].checked = source.checked;
+            }
+        }
+    }
+</script>
+<head>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'blog.css' %}">
+</head>
+
+<!---------------------------------start of body tag  --------------------------------------------------------------------------->
+
+<body>
+<center><h1>To Do List App</h1></center>
+<br><br><br><br>
+
+<!--------------------------------- text box for input  --------------------------------------------------------------------------->
+
+
+<form action="{% url 'todo:add' %}" method="post" align="center">
+{% csrf_token %}
+<input type="text" name="input" maxlength="90"/>
+</form>
+
+
+<img src="{{tick.png}}" />
+<img src="{{untick.png}}" />
+
+ <ul>
+  <label>&nbsp &nbsp &nbsp</label>
+   <!-----------------------------------------------------templeate for all forms------------------------------------------------------------------------>
+    <form action="{% url 'todo:completed' %}" method="post" align="right"/>
+     <div id="first">
+     <input type="checkbox" id="selectall" name="checks" onchange="checkall(this)"/>
+     </div>
+     <div id="second">
+      <input type="submit" id="submit" value="Mark as Done" name="markasdone"/>
+     </div>
+     <div id="third">
+         <input type="submit" id="submit" value="Delete Selected" name="Delete Selected"/>
+     </div>
+    </br>
+    <label>&nbsp &nbsp &nbsp</label>
+    {% csrf_token %}
+     {% for question in completeList %}
+    <div id="textaligner" align="left">
+	{% if question.is_completed == True %}
+    <img src="{% static "tick.png" %}" alt="My image"/>
+	{% elif question.is_completed == False %}
+	<img src="{% static "untick.png" %}" alt="image"/>
+	{% endif %}
+	{% if question.is_selected == True %}
+        <label><input type="checkbox" name="checks[]" id="{{forloop.counter}}" value="{{forloop.counter}}" checked/>  {{ question.list_text }}</label>
+	{% elif question.is_selected == False %}
+	    <label><input type="checkbox" name="checks[]" id="{{forloop.counter}}" value="{{forloop.counter}}"/>  {{ question.list_text }}</label>
+	{% endif %}
+    </div>
+    {% endfor %}
+    </form>
+ </ul>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+</body>
+</html>
